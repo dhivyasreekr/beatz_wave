@@ -6,26 +6,24 @@ import 'package:provider/provider.dart';
 void main() {
   // runApp(const MyApp());
 
-  runApp(
-    /// Providers are above [MyApp] instead of inside it, so that tests
-    /// can use [MyApp] while mocking the providers
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => Auth()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(title: 'home')
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Auth()),
+
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/home',
+        routes: {
+          '/home': (context) => HomeScreen(title: 'Home'),
+        },
+      ),
     );
   }
 }
