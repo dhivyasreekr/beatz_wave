@@ -1,16 +1,15 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../services/Auth.dart';
 
-
-
-
 class RegisterScreen extends StatefulWidget {
+
   final String title;
+
   const RegisterScreen({super.key, required this.title});
 
   @override
@@ -27,9 +26,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void initState() {
-    _nameController.text = "admin";
-    _emailController.text = "admin@gmail.com";
-    _passwordController.text = "password";
+    _nameController.text = "dhivya";
+    _emailController.text = "dhivya@gmail.com";
+    _passwordController.text = "dhivya";
     getDeviceName();
     super.initState();
   }
