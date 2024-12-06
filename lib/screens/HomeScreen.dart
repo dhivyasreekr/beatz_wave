@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import '../services/Auth.dart';
 
+import 'BrandScreen.dart';
+import 'GenreScreen.dart';
 import 'auth/LoginScreen.dart';
 import 'auth/RegisterScreen.dart';
 
@@ -55,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(child: Text('Home Screen')),
+      body: Center(child: Text('Beatz Wave')),
       drawer: Drawer(
         child: Consumer<Auth>(
           builder: (context, auth, child) {
@@ -77,13 +79,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       leading: Icon(Icons.app_registration),
                       onTap: () {
                         //Handle logout logic
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
+                        Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => RegisterScreen(title: 'Register')),
                         );
                       },
                     ),
+                    ListTile(
+                      title: Text('Genres'),
+                      leading: Icon(Icons.my_library_music),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => GenreScreen(title: 'GenreScreen')),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      title: Text('Brand'),
+                      leading: Icon(Icons.surround_sound_rounded),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => BrandScreen(title: 'BrandScreen')),
+                        );
+                      },
+                    )
                   ]
               );
             }
