@@ -18,7 +18,7 @@ class GenreScreen extends StatefulWidget {
 
 class _GenreScreenState extends State<GenreScreen> {
 
-  //Intialize genre as an empty list
+  //Initialize genre as an empty list
   late List<Genre> genres = [];
 
   @override
