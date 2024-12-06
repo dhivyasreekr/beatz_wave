@@ -1,3 +1,4 @@
+import 'package:beatz_wave/screens/song/SongScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -140,6 +141,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       color: Colors.blue,
                     ),
+                  ),
+                  ListTile(
+                    title: Text('Songs'),
+                    leading: Icon(Icons.queue_music_sharp),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context)=> SongScreen(title: 'Song')),
+                      );
+                    },
                   ),
                   ListTile(
                     title: Text('Logout'),
