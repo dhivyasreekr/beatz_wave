@@ -1,17 +1,18 @@
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
+import 'package:device_info_plus/device_info_plus.dart';
+
 import '../../services/Auth.dart';
-
-
-
 
 class LoginScreen extends StatefulWidget {
 
   final String title;
-  const LoginScreen({super.key,required this.title});
+
+  const LoginScreen({super.key, required this.title});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,10 +20,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  TextEditingController _emailController =TextEditingController();
-  TextEditingController _passwordController =TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
-  final _formKey =GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   // Get Device Info
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -36,35 +37,34 @@ class _LoginScreenState extends State<LoginScreen> {
       {
         AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
 
-        //e.g. "Moto e7 power"
-        _deviceName =androidInfo.model;
+        // e.g "Moto G (4)"
+        _deviceName = androidInfo.model;
+
       }
       else if(Platform.isIOS)
       {
-        IosDeviceInfo iosInfo =await deviceInfo.iosInfo;
+        IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
 
-        // e.g."ipod7,1"
-        _deviceName =iosInfo.utsname.machine;
+        // e.g. "iPod7,1"
+        _deviceName = iosInfo.utsname.machine;
       }
     }
-    catch (e) {
+    catch(e) {
 
     }
   }
 
   @override
   void initState() {
+    // Initial Data
+    _emailController.text = "admin@gmail.com";
+    _passwordController.text = "admin";
 
-    //Intial Data
-    _emailController.text ="admin@gmail.com";
-    _passwordController.text ="admin";
     getDeviceName();
-
     super.initState();
   }
-
   @override
-  void dispose(){
+  void dispose() {
 
     _emailController.dispose();
     _passwordController.dispose();
@@ -78,24 +78,21 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
-          key:_formKey,
-          child:Column(
+          key: _formKey,
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                  controller:_emailController,
-                  validator: (value) => value!.isEmpty ? 'please enter valid email' :null
-              ),
-              TextFormField(
-                  controller: _passwordController,
-                  validator: (value) => value!.isEmpty ? 'please enter password' : null
+                  controller: _emailController,
+                  validator: (value) => value!.isEmpty?'please enter password':null
               ),
               TextButton(
-                onPressed: () {
+                onPressed: (){
+
                   Map creds = {
-                    'email' :_emailController.text,
-                    'password' : _passwordController.text,
-                    'device_name' : _deviceName ?? 'unknown'
+                    'email' : _emailController.text,
+                    'password': _passwordController.text,
+                    'device_name': _deviceName?? 'unknown'
                   };
 
                   if(_formKey.currentState!.validate())
@@ -103,9 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     print('ok');
                     print(_emailController.text);
                     print(_passwordController.text);
-
                     Provider.of<Auth>(context, listen: false).login(creds: creds);
-
                     Navigator.pop(context);
                   }
                 },
