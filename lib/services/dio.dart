@@ -8,7 +8,7 @@ Dio dio() {
 
   dio.options.baseUrl = Constants.BASE_URL;
 
-  dio.options.headers ['accept'] = "application/json";
+  dio.options.headers['accept'] = "application/json";
 
   return dio;
 }
