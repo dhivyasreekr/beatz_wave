@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../../models/Song.dart';
 import '../../utils/Constants.dart';
+import 'MusicPlayerScreen.dart';
 
 
 
@@ -18,6 +20,7 @@ class SongScreen extends StatefulWidget {
 
 class _SongScreenState extends State<SongScreen> {
 
+  final storage = new FlutterSecureStorage();
   late List<Song> songs =[];
 
   @override
@@ -29,6 +32,13 @@ class _SongScreenState extends State<SongScreen> {
 
   Future<void> fetchData () async {
     try {
+      dynamic token = await this.storage.read(key: 'token');
+      print(token);
+
+      final headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      };
 
       final response =
       await http.get(Uri.parse(Constants.BASE_URL + Constants.SONG_ROUTE));
@@ -52,6 +62,17 @@ class _SongScreenState extends State<SongScreen> {
     catch (e) {
 
     }
+  }
+
+  void navigateToMusicPlayerScreen(Song selectedSong) {
+    // Implement your navigation logic here
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MusicPlayerScreen(song: selectedSong),
+      ),
+    );
+
   }
 
   Future<void> onRefresh() async {
