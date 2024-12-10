@@ -112,7 +112,12 @@ class _SongScreenState extends State<SongScreen> {
                         fit: BoxFit.scaleDown,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MusicPlayerScreen(song: songs[index])),
+                      );
+                    },
                   );
                 }
             )
