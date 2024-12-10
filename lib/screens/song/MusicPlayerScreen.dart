@@ -61,6 +61,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   }
 
   Future<void> playPauseAudio() async {
+
+    print(widget.song.song_path);
+
     if (isPlaying) {
       await player.pause();
     }else {
